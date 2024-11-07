@@ -14,5 +14,6 @@ svg {
 }
 
 div {
-    background-color: white
+    background-color: white;
+    pointer-events: none
 }
