@@ -50,6 +50,7 @@ let drawBars = () => {
        .style("width", "auto")
        .style("height", "auto")
        .style("position", "absolute")
+       .style("padding", "5px")
        
  
     svg.selectAll("rect")
@@ -64,9 +65,11 @@ let drawBars = () => {
        .attr("fill", "#579ec9")
        .attr("data-date", (d) => d[0])
        .attr("data-gdp", (d) => d[1])
-       .on("mouseover", (d) => {
+       .on("mouseover", (e, d) => {
         toolTip.transition()
           .style("visibility", "visible")
+          .style("left", (event.pageX) + 10 + "px") 
+          .style("top", (event.pageY) + "px")
         toolTip.html(`${d[0]} <br /><strong>$${d[1]} Billion</strong>`)
         document.querySelector('#tooltip').setAttribute('data-date', d[0])
       })
@@ -89,6 +92,14 @@ let generateAxes = () => {
        .call(yAxis)
        .attr("id", "y-axis")
        .attr("transform", `translate(${p}, 0)`)
+    
+    svg.append("text")
+       .attr("text-anchor", "end")
+       .attr("dy", ".75em")
+       .attr("y", 60)
+       .attr("x", -50)
+       .attr("transform", "rotate(-90)")
+       .text("Gross Domestic Product (Billions)")
 }
 
 req.open('GET', url, true)
